@@ -58,23 +58,18 @@ final class ClassCollection implements \Countable
 
     public function analyzeMethods(): array
     {
-        $methods = count($this->getMethods());
-        $methodsWithDescription = count($this->getMethods(function (Method $method) { return $method->hasDescription(); }));
         return [
-            'number' => $methods,
-            'withDescription' => $methodsWithDescription,
-            'percentage' => $this->calculatePercentage($methodsWithDescription, $methods),
+            'number' => count($this->getMethods()),
+            'withDescription' => count($this->getMethods(function (Method $method) { return $method->hasDescription(); })),
+            'withInheritDoc' => count($this->getMethods(function (Method $method) { return $method->isInheritDoc(); })),
         ];
     }
 
     public function analyzeProperties(): array
     {
-        $properties = count($this->getProperties());
-        $propertiesWithDescription = count($this->getProperties(function (Property $property) { return $property->hasDescription(); }));
         return [
-            'number' => $properties,
-            'withDescription' => $propertiesWithDescription,
-            'percentage' => $this->calculatePercentage($propertiesWithDescription, $properties),
+            'number' => count($this->getProperties()),
+            'withDescription' => count($this->getProperties(function (Property $property) { return $property->hasDescription(); })),
         ];
     }
 
@@ -126,16 +121,5 @@ final class ClassCollection implements \Countable
     public function count()
     {
         return count($this->classes);
-    }
-
-    /**
-     * @param $part
-     * @param $whole
-     *
-     * @return float|int
-     */
-    private function calculatePercentage($part, $whole)
-    {
-        return $whole ? ($part / $whole) * 100 : 0;
     }
 }

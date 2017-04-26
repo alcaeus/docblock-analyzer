@@ -44,4 +44,9 @@ final class Method
     {
         return is_callable($p) ? array_filter($this->throws, $p) : $this->throws;
     }
+
+    public function isInheritDoc(): bool
+    {
+        return (bool) preg_match('#\{@inheritdoc\}#', (string) $this->method->getDocComment());
+    }
 }

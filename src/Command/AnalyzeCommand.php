@@ -40,14 +40,17 @@ final class AnalyzeCommand extends Command
         [
             'number' => $methods,
             'withDescription' => $methodsWithDescription,
+            'withInheritDoc' => $methodsWithInheritDoc,
         ] = $classes->analyzeMethods();
 
-        [
-            'number' => $number,
-            'withDescription' => $withDescription,
-            'withMultipleTypes' => $withMultipleTypes,
-            'withWeakType' => $withWeakType,
-        ] = $classes->analyzeMethodParams();
+        $table
+            ->setHeaders(['', 'Total', 'With description', 'Inherits documentation'])
+            ->addRow(['Properties', $properties, $this->withPercentage($propertiesWithDescription, $properties)])
+            ->addRow(['Methods', $methods, $this->withPercentage($methodsWithDescription, $methods), $this->withPercentage($methodsWithInheritDoc, $methods)])
+        ;
+        $table->render();
+
+        $table = new Table($output);
 
         [
             'number' => $methodParams,
@@ -72,9 +75,6 @@ final class AnalyzeCommand extends Command
 
         $table
             ->setHeaders(['', 'Total', 'With description', 'Multiple types', 'Weak types', 'Void'])
-            ->addRow(['Properties', $properties, $this->withPercentage($propertiesWithDescription, $properties)])
-            ->addRow(['Methods', $methods, $this->withPercentage($methodsWithDescription, $methods)])
-            ->addRow(new TableSeparator())
             ->addRow([
                 'Method params',
                 $methodParams,
