@@ -1,0 +1,15 @@
+{
+    "name": "alcaeus/docblock-analyzer",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "symfony/console": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alcaeus\\DocblockAnalyzer\\": "src/"
+        },
+        "files": ["src/functions.php"]
+    }
+}
