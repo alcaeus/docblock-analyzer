@@ -15,8 +15,14 @@ final class ClassDocumentation
     public function __construct(\ReflectionClass $class)
     {
         $this->class = $class;
-        $this->properties = array_map(function (\ReflectionProperty $property) { return new Property($property); }, $class->getProperties());
-        $this->methods = array_map(function (\ReflectionMethod $method) { return new Method($method); }, $class->getMethods());
+        $this->properties = array_map(
+            function (\ReflectionProperty $property) { return new Property($property); },
+            array_filter($class->getProperties(), function (\ReflectionProperty $property) use ($class) { return $property->getDeclaringClass()->getName() === $class->getName(); })
+        );
+        $this->methods = array_map(
+            function (\ReflectionMethod $method) { return new Method($method); },
+            array_filter($class->getMethods(), function (\ReflectionMethod $method) use ($class) { return $method->getDeclaringClass()->getName() === $class->getName(); })
+        );
     }
 
     public static function createForClass(string $className): self
