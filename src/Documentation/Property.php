@@ -15,8 +15,8 @@ final class Property
     public function __construct(\ReflectionProperty $property)
     {
         $this->property = $property;
-        $this->description = DocParser::getDescription($property->getDocComment());
-        $this->var = DocParser::getVar($property->getDocComment());
+        $this->description = DocParser::getDescription((string) $property->getDocComment());
+        $this->var = DocParser::getVar((string) $property->getDocComment());
     }
 
     public function hasDescription(): bool

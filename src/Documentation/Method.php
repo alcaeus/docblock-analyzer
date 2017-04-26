@@ -19,10 +19,10 @@ final class Method
     public function __construct(\ReflectionMethod $method)
     {
         $this->method = $method;
-        $this->description = DocParser::getDescription($method->getDocComment());
-        $this->params = DocParser::getParams($method->getDocComment());
-        $this->return = DocParser::getReturn($method->getDocComment());
-        $this->throws = DocParser::getThrows($method->getDocComment());
+        $this->description = DocParser::getDescription((string) $method->getDocComment());
+        $this->params = DocParser::getParams((string) $method->getDocComment());
+        $this->return = DocParser::getReturn((string) $method->getDocComment());
+        $this->throws = DocParser::getThrows((string) $method->getDocComment());
     }
 
     public function hasDescription(): bool
