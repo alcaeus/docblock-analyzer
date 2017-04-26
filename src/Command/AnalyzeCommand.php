@@ -16,13 +16,16 @@ final class AnalyzeCommand extends Command
     {
         $this
             ->setName('analyze')
-            ->addArgument('path', InputArgument::REQUIRED);
+            ->addArgument('path', InputArgument::REQUIRED)
+            ->addArgument('namespace', InputArgument::REQUIRED)
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $path = $input->getArgument('path');
-        $classes = $this->getClassNames($path);
+        $namespace = $input->getArgument('namespace');
+        $classes = $this->getClassNames($path, $namespace);
 
         $classes = ClassCollection::create($classes);
 
@@ -98,11 +101,12 @@ final class AnalyzeCommand extends Command
         $table->render();
     }
 
-    private function getClassNames($path): array
+    private function getClassNames(string $path, string $namespace): array
     {
-        $declaredClasses = get_declared_classes();
         $this->loadFiles($path);
-        $newClasses = array_diff(get_declared_classes(), $declaredClasses);
+        $newClasses = array_filter(get_declared_classes(), function (string $className) use ($namespace) {
+            return preg_match('#^' . preg_quote($namespace, '#') . '#', $className);
+        });
 
         return array_values($newClasses);
     }
