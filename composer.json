@@ -11,5 +11,8 @@
             "Alcaeus\\DocblockAnalyzer\\": "src/"
         },
         "files": ["src/functions.php"]
-    }
+    },
+    "bin": [
+        "bin/docblock-analyzer"
+    ]
 }
