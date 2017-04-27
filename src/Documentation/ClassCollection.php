@@ -79,12 +79,14 @@ final class ClassCollection implements \Countable
         $paramsWithDescription = count($this->getParams(null, function (Statement $param) { return $param->hasDescription(); }));
         $paramsWithMultipleTypes = count($this->getParams(null, function (Statement $param) { return $param->hasMultipleTypes(); }));
         $paramsWithWeakType = count($this->getParams(null, function (Statement $param) { return $param->isWeakType(); }));
+        $paramsWithTypedArray = count($this->getParams(null, function (Statement $param) { return $param->isTypedArray(); }));
 
         return [
             'number' => $params,
             'withDescription' => $paramsWithDescription,
             'withMultipleTypes' => $paramsWithMultipleTypes,
             'withWeakType' => $paramsWithWeakType,
+            'withTypedArray' => $paramsWithTypedArray,
         ];
     }
 
@@ -94,6 +96,7 @@ final class ClassCollection implements \Countable
         $returnStatementsWithDescription = count($this->getReturnStatements(null, function (Statement $return) { return $return->hasDescription(); }));
         $returnStatementsWithMultipleTypes = count($this->getReturnStatements(null, function (Statement $return) { return $return->hasMultipleTypes(); }));
         $returnStatementsWithWeakType = count($this->getReturnStatements(null, function (Statement $return) { return $return->isWeakType(); }));
+        $returnStatementsWithTypedArray = count($this->getReturnStatements(null, function (Statement $return) { return $return->isTypedArray(); }));
         $returnStatementsWithVoid = count($this->getReturnStatements(null, function (Statement $return) { return $return->isVoid(); }));
 
         return [
@@ -101,6 +104,7 @@ final class ClassCollection implements \Countable
             'withDescription' => $returnStatementsWithDescription,
             'withMultipleTypes' => $returnStatementsWithMultipleTypes,
             'withWeakType' => $returnStatementsWithWeakType,
+            'withTypedArray' => $returnStatementsWithTypedArray,
             'withVoid' => $returnStatementsWithVoid,
         ];
     }

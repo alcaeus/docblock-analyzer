@@ -51,4 +51,9 @@ class Statement
     {
         return (bool) preg_match('#(^|\|)void(\||$)#i', $this->type);
     }
+
+    public function isTypedArray(): bool
+    {
+        return (bool) preg_match('#\[\](\||$)#i', $this->type);
+    }
 }

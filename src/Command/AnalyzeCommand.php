@@ -57,6 +57,7 @@ final class AnalyzeCommand extends Command
             'withDescription' => $methodParamsWithDescription,
             'withMultipleTypes' => $methodParamsWithMultipleTypes,
             'withWeakType' => $methodParamsWithWeakType,
+            'withTypedArray' => $methodParamsWithTypedArray,
         ] = $classes->analyzeMethodParams();
 
         [
@@ -64,6 +65,7 @@ final class AnalyzeCommand extends Command
             'withDescription' => $methodReturnStatementsWithDescription,
             'withMultipleTypes' => $methodReturnStatementsWithMultipleTypes,
             'withWeakType' => $methodReturnStatementsWithWeakType,
+            'withTypedArray' => $methodReturnStatementsWithTypedArray,
             'withVoid' => $methodReturnStatementsWithVoid,
         ] = $classes->analyzeMethodReturnStatements();
 
@@ -74,13 +76,14 @@ final class AnalyzeCommand extends Command
         ] = $classes->analyzeMethodThrows();
 
         $table
-            ->setHeaders(['', 'Total', 'With description', 'Multiple types', 'Weak types', 'Void'])
+            ->setHeaders(['', 'Total', 'With description', 'Multiple types', 'Weak types', 'Typed array', 'Void'])
             ->addRow([
                 'Method params',
                 $methodParams,
                 $this->withPercentage($methodParamsWithDescription, $methodParams),
                 $this->withPercentage($methodParamsWithMultipleTypes, $methodParams),
                 $this->withPercentage($methodParamsWithWeakType, $methodParams),
+                $this->withPercentage($methodParamsWithTypedArray, $methodParams),
             ])
             ->addRow([
                 'Method return statements',
@@ -88,6 +91,7 @@ final class AnalyzeCommand extends Command
                 $this->withPercentage($methodReturnStatementsWithDescription, $methodReturnStatements),
                 $this->withPercentage($methodReturnStatementsWithMultipleTypes, $methodReturnStatements),
                 $this->withPercentage($methodReturnStatementsWithWeakType, $methodReturnStatements),
+                $this->withPercentage($methodReturnStatementsWithTypedArray, $methodReturnStatements),
                 $this->withPercentage($methodReturnStatementsWithVoid, $methodReturnStatements),
             ])
             ->addRow([

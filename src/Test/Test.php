@@ -21,6 +21,7 @@ final class Test
      * @param int $bar Description bleh bleh bleh bleh bleh bleh bleh bleh bleh
      * Newline bleh bleh bleh bleh bleh
      * @param int $bar
+     * @param array|Test[] $foo
      * @return void Useless description
      */
     public function methodWithDocblocks()
