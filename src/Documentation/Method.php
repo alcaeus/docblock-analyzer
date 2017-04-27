@@ -27,7 +27,7 @@ final class Method
 
     public function hasDescription(): bool
     {
-        return !empty($this->description);
+        return !$this->isInheritDoc() && !empty($this->description);
     }
 
     public function getParams(?callable $p = null): array
